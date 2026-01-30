@@ -1,0 +1,3 @@
+# We don't need node modules as Docker has it's own dependencies through our image.
+# We just need our package.json or package-lock.json files to dockerization our projects
+node_modules/
