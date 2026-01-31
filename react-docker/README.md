@@ -71,3 +71,132 @@ export default defineConfig([
   },
 ])
 ```
+
+
+# 3. 🐳 Dockerizing a React App — Learning Repo
+
+This repository documents the React + Docker demo (24:00–42:00) from a Docker fundamentals course.
+The goal is to understand how React applications are containerized, why Dockerfiles are structured the way they are, and what actually happens when a container runs.
+
+This is a learning-focused repository, not a production template.
+
+🎯 Learning Objectives
+
+By working through this repo, you will learn:
+
+How Docker builds a React application
+
+How Docker images differ from containers
+
+Why Dockerfile instruction order matters
+
+How ports are exposed and mapped
+
+How React runs inside a container without local Node installed
+
+The difference between development and production Docker setups
+
+📦 Tech Stack
+
+React
+
+Node.js
+
+Docker
+
+Docker Desktop (for visualization)
+
+📁 Project Structure
+react-docker-demo/
+├── Dockerfile
+├── package.json
+├── package-lock.json
+├── src/
+├── public/
+└── README.md
+
+🧱 Dockerfile Explained
+
+The Dockerfile defines how Docker builds the React image.
+
+FROM node:18
+
+WORKDIR /app
+
+COPY package.json package-lock.json ./
+RUN npm install
+
+COPY . .
+
+EXPOSE 3000
+
+CMD ["npm", "start"]
+
+🔍 What Each Instruction Does
+Instruction	Purpose
+FROM node:18	Uses Node as the runtime environment
+WORKDIR /app	Sets the working directory inside the container
+COPY package*.json	Copies dependency metadata only
+RUN npm install	Installs dependencies inside the image
+COPY . .	Copies the rest of the project
+EXPOSE 3000	Documents the port the app runs on
+CMD	Starts the React development server
+
+🔹 Why this order matters
+Docker caches layers. Dependencies are only reinstalled if package.json changes, which speeds up rebuilds.
+
+🏗 Build the Docker Image
+
+To build the Docker image:
+
+docker build -t react-docker-demo .
+
+
+This command:
+
+Reads the Dockerfile
+
+Executes instructions top to bottom
+
+Produces an immutable Docker image
+
+▶️ Run the Container
+
+To run the React app inside Docker:
+
+docker run -p 3000:3000 react-docker-demo
+
+
+-p 3000:3000 maps the container port to your local machine
+
+The app is accessible at http://localhost:3000
+
+🔁 Hot Reload & File Changes
+
+When running this setup without volume mounts, file changes on the host will not automatically reflect inside the container.
+
+This is intentional for learning:
+
+It demonstrates container isolation
+
+It shows why volumes are needed for live development
+
+🧠 Key Concepts Learned
+
+Docker images are blueprints
+
+Containers are running instances
+
+React does not need to be installed locally
+
+Port mapping is required for browser access
+
+Docker replaces environment-specific setups
+
+Development and production containers differ
+
+⚠️ Development vs Production Note
+
+This repo uses:
+
+npm start
