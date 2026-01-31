@@ -241,3 +241,97 @@ Push image to Docker Hub
 📎 Reference
 
 This repository is based on the React Docker Demo (24:00–42:00) from a Docker fundamentals course by JavaScript Mastery.
+
+# 4. 📤 Publishing a Docker Image to Docker Hub
+
+After successfully building and running the React Docker image locally, the next step is to publish the image so others can pull and run it anywhere.
+
+Why Publish Images?
+
+Publishing allows:
+
+Sharing applications without source code
+
+Running apps without local setup
+
+Reusing images across teams and CI/CD pipelines
+
+🔐 Authenticate with Docker Hub
+docker login
+
+
+If Docker Desktop is already authenticated, this step may complete automatically.
+
+🏷 Tag the Image
+
+Before pushing, the image must be tagged with your Docker Hub username.
+
+docker tag react-docker <username>/react-docker
+
+
+Example:
+
+docker tag react-docker javascriptmastery/react-docker
+
+
+🔹 Important rule
+Docker Hub requires images to be prefixed with your username or organization name.
+
+⬆️ Push the Image
+docker push <username>/react-docker
+
+
+This uploads the image to Docker Hub, making it publicly accessible (or private, depending on settings).
+
+Once pushed:
+
+The image appears in Docker Desktop
+
+It becomes visible on Docker Hub under Repositories
+
+Anyone can run it using docker run
+
+▶️ Running a Published Image
+
+Anyone can now run the app without cloning the repo:
+
+docker run -p 3000:3000 <username>/react-docker
+
+
+This demonstrates one of Docker’s core strengths:
+build once, run anywhere.
+
+🧠 Key Concept: Images vs Source Code
+
+At this point, an important mental model is reinforced:
+
+Concept	Meaning
+Source Code	Instructions to build
+Docker Image	Prebuilt executable artifact
+Container	Running instance of an image
+
+Docker Hub acts like npm, but for full application environments.
+
+🧩 Why Managing Docker Commands Becomes Painful
+
+The session highlights a common pain point:
+
+Multiple commands required to:
+
+Build images
+
+Run containers
+
+Map ports
+
+Configure volumes
+
+Connect services
+
+As applications grow, this approach becomes:
+
+Error-prone
+
+Hard to remember
+
+Difficult to scale
