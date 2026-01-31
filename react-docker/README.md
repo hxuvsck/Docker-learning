@@ -200,3 +200,44 @@ Development and production containers differ
 This repo uses:
 
 npm start
+
+📌 Common Commands Reference
+# Build image
+docker build -t react-docker-demo .
+
+# Run container
+docker run -p 3000:3000 react-docker-demo
+
+# List images
+docker images
+
+# List running containers
+docker ps
+
+🧪 Who This Repo Is For
+
+Developers new to Docker
+
+Frontend engineers learning containerization
+
+Anyone confused about how React runs inside Docker
+
+Learners transitioning from local dev → containers
+
+📚 Next Steps
+
+Recommended follow-ups:
+
+Add volume mounts for live reload
+
+Convert to a production Dockerfile
+
+Introduce Docker Compose
+
+Serve build output with Nginx
+
+Push image to Docker Hub
+
+📎 Reference
+
+This repository is based on the React Docker Demo (24:00–42:00) from a Docker fundamentals course by JavaScript Mastery.
