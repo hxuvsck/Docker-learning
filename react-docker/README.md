@@ -335,3 +335,182 @@ Error-prone
 Hard to remember
 
 Difficult to scale
+
+# 5. Docker Compose — Managing React Apps with One Command
+
+As applications grow, managing containers with long docker build and docker run commands becomes inefficient.
+This section introduces Docker Compose, a tool designed to define and run multi-container applications using a single configuration file.
+
+🤔 Why Docker Compose Exists
+
+Running containers manually requires repeating steps such as:
+
+Building images
+
+Mapping ports
+
+Mounting volumes
+
+Creating networks
+
+Running multiple containers in the correct order
+
+Docker Compose solves this by:
+
+Centralizing configuration
+
+Reducing command complexity
+
+Making setups reproducible
+
+📄 docker-compose.yml Overview
+
+Docker Compose uses a YAML file called:
+
+docker-compose.yml
+
+
+This file defines:
+
+Services (containers)
+
+Ports
+
+Volumes
+
+Networks
+
+Environment variables
+
+Instead of imperative commands, Docker Compose uses declarative configuration.
+
+🧱 Basic Docker Compose Structure
+version: "3.9"
+
+services:
+  react-app:
+    build: .
+    ports:
+      - "3000:3000"
+
+🔍 Key Concepts
+Field	Purpose
+services	List of containers to run
+build	Path to Dockerfile
+ports	Port mapping between host and container
+version	Compose file schema version
+
+Each service maps directly to a container.
+
+▶️ Running the App with Docker Compose
+
+Once the file is defined, the entire application is started with:
+
+docker compose up
+
+
+This command:
+
+Builds the image (if needed)
+
+Creates a network
+
+Starts containers
+
+Attaches logs automatically
+
+To stop everything:
+
+docker compose down
+
+🔁 Live Development with Volumes
+
+Docker Compose makes volume mounting easier and more readable.
+
+services:
+  react-app:
+    build: .
+    ports:
+      - "3000:3000"
+    volumes:
+      - .:/app
+      - /app/node_modules
+
+Why This Matters
+
+File changes on the host reflect instantly
+
+Enables hot reload inside containers
+
+Prevents overwriting node_modules inside Docker
+
+This solves the “no hot reload” problem seen earlier.
+
+🔌 Ports & Networking
+
+With Docker Compose:
+
+Services automatically share a network
+
+Containers can communicate using service names
+
+No manual network creation is required
+
+This becomes critical when adding:
+
+APIs
+
+Databases
+
+Caches
+
+🧠 Mental Model Shift
+Docker CLI	Docker Compose
+Imperative	Declarative
+Manual steps	Automated orchestration
+Hard to scale	Easy to extend
+Error-prone	Repeatable
+
+Docker Compose acts as the single source of truth for how your app runs.
+
+🛠 docker init (Compose Generator)
+
+The video introduces docker init as a helper CLI tool.
+
+docker init
+
+
+It:
+
+Detects project type (React, Node, etc.)
+
+Generates:
+
+Dockerfile
+
+docker-compose.yml
+
+README.docker.md
+
+This speeds up setup while still allowing full customization.
+
+🎯 What You Should Understand After This Section
+
+✔ What Docker Compose is
+✔ Why YAML replaces multiple CLI commands
+✔ How services map to containers
+✔ How volumes enable hot reload
+✔ Why Compose is essential for multi-container apps
+
+📌 Common Docker Compose Commands
+# Start services
+docker compose up
+
+# Start in detached mode
+docker compose up -d
+
+# Stop and remove containers
+docker compose down
+
+# View running services
+docker compose ps
