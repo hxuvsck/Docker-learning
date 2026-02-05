@@ -1,8 +1,13 @@
 services:
-  server:
+  web:
+    #switched server to web as common practice for web application and not servers
     build:
       context: .
-    environment:
-      NODE_ENV: production
+    # environment:           ----removing these 2 lines as we not using any of environments now
+    #   NODE_ENV: production ----
     ports:
       - 5173:5173
+    volumes:
+      # added as we did it before manually
+      - .:/app
+      - /app/node_modules
