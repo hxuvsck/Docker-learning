@@ -514,3 +514,82 @@ docker compose down
 
 # View running services
 docker compose ps
+
+Running the Project with Docker Compose
+
+This project uses Docker Compose to orchestrate multiple services (application + dependencies).
+
+📦 Services
+
+web – Frontend (Vite/React app)
+
+(Add others if included in your project, e.g. db, api, etc.)
+
+🚀 Getting Started
+1️⃣ Prerequisites
+
+Make sure you have:
+
+Docker Desktop installed
+
+Docker Engine running
+
+Verify installation:
+
+docker --version
+docker compose version
+
+2️⃣ Build and Start Containers
+
+From the project root (where docker-compose.yml is located):
+
+docker compose up --build
+
+
+This will:
+
+Build the Docker image
+
+Create containers
+
+Start all defined services
+
+Attach logs to your terminal
+
+3️⃣ Run in Detached Mode (Optional)
+
+To run in background:
+
+docker compose up -d
+
+4️⃣ Stop Containers
+docker compose down
+
+
+This will stop and remove:
+
+Containers
+
+Networks created by Compose
+
+🔄 Rebuilding After Changes
+
+If you modify:
+
+Dockerfile
+
+package.json
+
+Dependencies
+
+Rebuild the containers:
+
+docker compose up --build
+
+🧠 Important Notes
+
+Always run docker compose from the directory containing docker-compose.yml
+
+Docker Desktop must be running
+
+If ports are already in use, change them in docker-compose.yml
