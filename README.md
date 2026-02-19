@@ -593,3 +593,80 @@ Always run docker compose from the directory containing docker-compose.yml
 Docker Desktop must be running
 
 If ports are already in use, change them in docker-compose.yml
+
+🔁 Development Setup with Bind Mounts (Hot Reload)
+
+During development, we use bind mounts so changes in our local files instantly reflect inside the container.
+
+📂 Why Bind Mounts?
+
+Without volumes:
+
+Every code change requires rebuilding the image ❌
+
+With bind mounts:
+
+Local files sync with container automatically ✅
+
+No need to rebuild on every change
+
+Faster development workflow
+
+🧱 Example (docker-compose.yml)
+services:
+  web:
+    build: .
+    ports:
+      - "5173:5173"
+    volumes:
+      - .:/app
+      - /app/node_modules
+    command: npm run dev
+
+🔍 What This Does
+.:/app
+
+Mounts the current project folder into the container.
+
+Left side (.) → your local project
+
+Right side (/app) → container directory
+
+So when you edit files locally, the container sees changes instantly.
+
+/app/node_modules
+
+Prevents local node_modules from overriding container dependencies.
+
+Why?
+
+Because:
+
+node_modules inside container is built for Linux
+
+Windows/macOS modules may conflict
+
+This keeps dependencies isolated inside Docker.
+
+🚀 Run Development Mode
+docker compose up
+
+
+Now:
+
+Edit your code locally
+
+Browser auto-refreshes
+
+No rebuild needed
+
+🛑 Stop Development
+docker compose down
+
+🧠 Key Learning from This Section
+
+✔ Difference between image and container
+✔ Why rebuilds are expensive
+✔ How volumes improve DX (Developer Experience)
+✔ How to properly isolate node_modules
+✔ Why Docker development ≠ production setup
